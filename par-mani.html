@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <script src="scripts.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="about_title">Par mani</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-theme {
+            background-color: #333 !important;
+            color: #f0f0f0 !important;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e6f0fa;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+            transition: background-color 0.3s, border-bottom 0.3s, color 0.3s;
+        }
+
+        body.dark-theme .navbar {
+            background-color: #444 !important;
+            border-bottom: 1px solid #666 !important;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            display: none !important;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        .dark-theme .nav-links a {
+            color: #f0f0f0 !important;
+        }
+
+        .dark-theme .nav-links a:hover {
+            color: #66b0ff !important;
+        }
+
+        .icons-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-toggle {
+            padding: 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            transition: background-color 0.3s;
+        }
+
+        .theme-icon {
+            font-size: 20px;
+        }
+
+        .dark-theme .theme-toggle {
+            background-color: #66b0ff !important;
+        }
+
+        .dark-theme .theme-toggle:hover {
+            background-color: #99ccff !important;
+        }
+
+        .language-toggle {
+            position: relative;
+        }
+
+        .language-icon {
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .language-icon:hover {
+            background-color: #e6f0fa;
+        }
+
+        .dark-theme .language-icon:hover {
+            background-color: #555 !important;
+        }
+
+        .language-menu {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .language-menu.active {
+            display: block;
+        }
+
+        .language-menu a {
+            display: block;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .language-menu a:hover {
+            background-color: #e6f0fa;
+        }
+
+        .dark-theme .language-menu {
+            background-color: #444 !important;
+            border-color: #666 !important;
+        }
+
+        .dark-theme .language-menu a {
+            color: #f0f0f0 !important;
+        }
+
+        .dark-theme .language-menu a:hover {
+            background-color: #555 !important;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .text {
+            text-align: justify;
+        }
+
+        .text p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .text a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .text a:hover {
+            text-decoration: underline;
+        }
+
+        .dark-theme .text a {
+            color: #66b0ff !important;
+        }
+
+        .image {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .image img {
+            max-width: 65%;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .dark-theme .image img {
+            border-color: #666 !important;
+        }
+
+        @media (min-width: 769px) {
+            .menu-icon {
+                display: none !important;
+            }
+            .nav-links {
+                display: flex !important;
+            }
+        }
+
+       @media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .menu-icon {
+        display: block !important;
+    }
+
+    .nav-links {
+        display: none !important;
+        flex-direction: column;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .nav-links.active {
+        display: flex !important;
+    }
+
+    .nav-links a {
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .icons-container {
+        margin-top: 10px;
+        align-self: flex-end;
+    }
+
+    .theme-toggle, .language-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .theme-icon, .language-icon {
+        font-size: 18px;
+    }
+
+    .language-menu {
+        top: 36px;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .text, .image {
+        width: 100%;
+    }
+
+    .image {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 18px;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+    }
+
+    .theme-toggle, .language-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .theme-icon, .language-icon {
+        font-size: 16px;
+    }
+
+    .language-menu {
+        top: 32px;
+    }
+
+    .language-menu a {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .image {
+        margin-top: 15px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="nav-links">
+            <a href="index.html" data-translate="nav_home">Sākums</a>
+            <a href="pieredze.html" data-translate="nav_experience">Pieredze</a>
+            <a href="par-mani.html" data-translate="nav_about">Par mani</a>
+            <a href="kontakti.html" data-translate="nav_contacts">Kontakti</a>
+        </div>
+        <div class="icons-container">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <div class="language-toggle">
+                <span class="language-icon" onclick="toggleLanguageMenu()">🌐</span>
+                <div class="language-menu">
+                    <a href="#" onclick="setLanguage('lv'); toggleLanguageMenu(); return false;">LV</a>
+                    <a href="#" onclick="setLanguage('en'); toggleLanguageMenu(); return false;">EN</a>
+                    <a href="#" onclick="setLanguage('ru'); toggleLanguageMenu(); return false;">RU</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 data-translate="about_title">Par mani</h1>
+        <div class="content">
+            <div class="text">
+                <p data-translate="about_text_1">Sveiki! Mani sauc Renats Junusovs, man ir 21 gads, un es esmu 3. kursa students Latvijas Universitātē, Datorikas fakultātē. Jau no bērnības mani aizrāva tehnoloģijas un programmēšana, tāpēc izvēlējos studēt tieši šo jomu. Man patīk risināt sarežģītus uzdevumus un radīt kaut ko jaunu, izmantojot kodu.</p>
+                <p data-translate="about_text_2">Ārpus studijām es aizraujos ar ceļošanu un fotografēšanu – man patīk iemūžināt skaistas ainavas un interesantus mirkļus. Tāpat es labprāt pavadu laiku ar draugiem, spēlējot galda spēles vai apspriežot jaunākās tehnoloģiju tendences. Nākotnē es vēlos kļūt par izcilu programmētāju un strādāt pie inovatīviem projektiem, kas varētu mainīt pasauli uz labo pusi.</p>
+            </div>
+        </div>
+        <div class="image">
+            <img src="photos/es.png" alt="es">
+        </div>
+    </div>
+</body>
+</html>

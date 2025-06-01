@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <script src="scripts.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="contacts_title">Kontakti</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-theme {
+            background-color: #333 !important;
+            color: #f0f0f0 !important;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e6f0fa;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+            transition: background-color 0.3s, border-bottom 0.3s, color 0.3s;
+        }
+
+        body.dark-theme .navbar {
+            background-color: #444 !important;
+            border-bottom: 1px solid #666 !important;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            display: none !important;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        .dark-theme .nav-links a {
+            color: #f0f0f0 !important;
+        }
+
+        .dark-theme .nav-links a:hover {
+            color: #66b0ff !important;
+        }
+
+        .icons-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-toggle {
+            padding: 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            transition: background-color 0.3s;
+        }
+
+        .theme-icon {
+            font-size: 20px;
+        }
+
+        .dark-theme .theme-toggle {
+            background-color: #66b0ff !important;
+        }
+
+        .dark-theme .theme-toggle:hover {
+            background-color: #99ccff !important;
+        }
+
+        .language-toggle {
+            position: relative;
+        }
+
+        .language-icon {
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .language-icon:hover {
+            background-color: #e6f0fa;
+        }
+
+        .dark-theme .language-icon:hover {
+            background-color: #555 !important;
+        }
+
+        .language-menu {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .language-menu.active {
+            display: block;
+        }
+
+        .language-menu a {
+            display: block;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .language-menu a:hover {
+            background-color: #e6f0fa;
+        }
+
+        .dark-theme .language-menu {
+            background-color: #444 !important;
+            border-color: #666 !important;
+        }
+
+        .dark-theme .language-menu a {
+            color: #f0f0f0 !important;
+        }
+
+        .dark-theme .language-menu a:hover {
+            background-color: #555 !important;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            /* Uzbūve vairs nav flex, jo nav attēlu blakus tekstam */
+        }
+
+        .text {
+            text-align: justify;
+        }
+
+        .text p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .text a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .text a:hover {
+            text-decoration: underline;
+        }
+
+        .dark-theme .text a {
+            color: #66b0ff !important;
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-icons img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .dark-theme .contact-icons img {
+            filter: brightness(1.5);
+        }
+
+        @media (min-width: 769px) {
+            .menu-icon {
+                display: none !important;
+            }
+            .nav-links {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+            }
+
+            .menu-icon {
+                display: block !important;
+            }
+
+            .nav-links {
+                display: none !important;
+                flex-direction: column;
+                width: 100%;
+                padding: 10px 0;
+            }
+
+            .nav-links.active {
+                display: flex !important;
+            }
+
+            .nav-links a {
+                padding: 10px;
+                font-size: 16px;
+                width: 100%;
+                text-align: left;
+            }
+
+            .icons-container {
+                margin-top: 10px;
+                align-self: flex-end;
+            }
+
+            .theme-toggle, .language-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .theme-icon, .language-icon {
+                font-size: 18px;
+            }
+
+            .language-menu {
+                top: 36px;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .text {
+                width: 100%;
+            }
+
+            .contact-icons {
+                max-width: 250px;
+                margin-top: 15px;
+            }
+
+            .contact-icons img {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 18px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            .theme-toggle, .language-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .theme-icon, .language-icon {
+                font-size: 16px;
+            }
+
+            .language-menu {
+                top: 32px;
+            }
+
+            .language-menu a {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .contact-icons {
+                max-width: 200px;
+                margin-top: 10px;
+            }
+
+            .contact-icons img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="nav-links">
+            <a href="index.html" data-translate="nav_home">Sākums</a>
+            <a href="pieredze.html" data-translate="nav_experience">Pieredze</a>
+            <a href="par-mani.html" data-translate="nav_about">Par mani</a>
+            <a href="kontakti.html" data-translate="nav_contacts">Kontakti</a>
+        </div>
+        <div class="icons-container">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <div class="language-toggle">
+                <span class="language-icon" onclick="toggleLanguageMenu()">🌐</span>
+                <div class="language-menu">
+                    <a href="#" onclick="setLanguage('lv'); toggleLanguageMenu(); return false;">LV</a>
+                    <a href="#" onclick="setLanguage('en'); toggleLanguageMenu(); return false;">EN</a>
+                    <a href="#" onclick="setLanguage('ru'); toggleLanguageMenu(); return false;">RU</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 data-translate="contacts_title">Kontakti</h1>
+        <div class="content">
+            <div class="text">
+                <p><span data-translate="contacts_email_label">E-pasts:</span> <a href="mailto:renat.junusov@inbox.lv" data-translate="contacts_email">renat.junusov@inbox.lv</a></p>
+                <p><span data-translate="contacts_phone_label">Telefons:</span> <a href="tel:+37128817437" data-translate="contacts_phone">+371 28817437</a></p>
+                <p><span data-translate="contacts_address_label">Adrese:</span> <span data-translate="contacts_address">Rīga, Latvija</span></p>
+                <p data-translate="contacts_text">Ja jums ir kādi jautājumi vai vēlaties sazināties ar mani, lūdzu, izmantojiet iepriekš minētos kontaktus.</p>
+                <div class="contact-icons">
+                    <img src="photos/phone.png" alt="Phone Icon">
+                    <img src="photos/email.png" alt="Email Icon">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

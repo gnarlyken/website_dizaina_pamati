@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="home_title">Sākums</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-theme {
+            background-color: #333 !important;
+            color: #f0f0f0 !important;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e6f0fa;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+            transition: background-color 0.3s, border-bottom 0.3s, color 0.3s;
+        }
+
+        body.dark-theme .navbar {
+            background-color: #444 !important;
+            border-bottom: 1px solid #666 !important;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            display: none !important;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        .dark-theme .nav-links a {
+            color: #f0f0f0 !important;
+        }
+
+        .dark-theme .nav-links a:hover {
+            color: #66b0ff !important;
+        }
+
+        .icons-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-toggle {
+            padding: 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            transition: background-color 0.3s;
+        }
+
+        .theme-icon {
+            font-size: 20px;
+        }
+
+        .dark-theme .theme-toggle {
+            background-color: #66b0ff !important;
+        }
+
+        .dark-theme .theme-toggle:hover {
+            background-color: #99ccff !important;
+        }
+
+        .language-toggle {
+            position: relative;
+        }
+
+        .language-icon {
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .language-icon:hover {
+            background-color: #e6f0fa;
+        }
+
+        .dark-theme .language-icon:hover {
+            background-color: #555 !important;
+        }
+
+        .language-menu {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .language-menu.active {
+            display: block;
+        }
+
+        .language-menu a {
+            display: block;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .language-menu a:hover {
+            background-color: #e6f0fa;
+        }
+
+        .dark-theme .language-menu {
+            background-color: #444 !important;
+            border-color: #666 !important;
+        }
+
+        .dark-theme .language-menu a {
+            color: #f0f0f0 !important;
+        }
+
+        .dark-theme .language-menu a:hover {
+            background-color: #555 !important;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            display: flex;
+            gap: 20px;
+        }
+
+        .text {
+            flex: 3;
+            text-align: justify;
+        }
+
+        .text p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .experience-button {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .experience-button:hover {
+            background-color: #0056b3;
+        }
+
+        .dark-theme .experience-button {
+            background-color: #66b0ff;
+        }
+
+        .dark-theme .experience-button:hover {
+            background-color: #99ccff;
+        }
+
+        .image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .image img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .dark-theme .image img {
+            border-color: #666 !important;
+        }
+
+        @media (min-width: 769px) {
+            .menu-icon {
+                display: none !important;
+            }
+            .nav-links {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+            }
+
+            .menu-icon {
+                display: block !important;
+            }
+
+            .nav-links {
+                display: none !important;
+                flex-direction: column;
+                width: 100%;
+                padding: 10px 0;
+            }
+
+            .nav-links.active {
+                display: flex !important;
+            }
+
+            .nav-links a {
+                padding: 10px;
+                font-size: 16px;
+                width: 100%;
+                text-align: left;
+            }
+
+            .icons-container {
+                margin-top: 10px;
+                align-self: flex-end;
+            }
+
+            .theme-toggle, .language-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .theme-icon, .language-icon {
+                font-size: 18px;
+            }
+
+            .language-menu {
+                top: 36px;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .content {
+                flex-direction: column;
+            }
+
+            .text, .image {
+                flex: none;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 18px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            .theme-toggle, .language-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .theme-icon, .language-icon {
+                font-size: 16px;
+            }
+
+            .language-menu {
+                top: 32px;
+            }
+
+            .language-menu a {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .experience-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="nav-links">
+            <a href="index.html" data-translate="nav_home">Sākums</a>
+            <a href="pieredze.html" data-translate="nav_experience">Pieredze</a>
+            <a href="par-mani.html" data-translate="nav_about">Par mani</a>
+            <a href="kontakti.html" data-translate="nav_contacts">Kontakti</a>
+        </div>
+        <div class="icons-container">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <div class="language-toggle">
+                <span class="language-icon" onclick="toggleLanguageMenu()">🌐</span>
+                <div class="language-menu">
+                    <a href="#" onclick="setLanguage('lv'); toggleLanguageMenu(); return false;">LV</a>
+                    <a href="#" onclick="setLanguage('en'); toggleLanguageMenu(); return false;">EN</a>
+                    <a href="#" onclick="setLanguage('ru'); toggleLanguageMenu(); return false;">RU</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 data-translate="home_title">Sākums</h1>
+        <div class="content">
+            <div class="text">
+                <p data-translate="home_text_1">Sveiki un laipni lūgti manā mājaslapā! Šeit es dalos ar savu digitālo pieredzi, ko esmu ieguvis, mācoties Latvijas Universitātē. Esmu students Datorikas fakultātē, un šis ceļš ir bijis pilns ar aizraujošiem izaicinājumiem un jaunām atklāsmēm. Sākot no 2022. gada, kad es uzsāku studijas, esmu apguvis daudz jaunu prasmju, kas saistītas ar programmēšanu, algoritmiem un web izstrādi, un šī mājaslapa ir viens no maniem pirmajiem nozīmīgajiem projektiem, kas atspoguļo manu attīstību.</p>
+                <p data-translate="home_text_2">Šī mājaslapa ir mana portfolio vieta, kurā es demonstrēju savus projektus un prasmes, kas saistītas ar programmēšanu un web izstrādi. Lai to izveidotu, es izmantoju HTML, CSS un JavaScript, kā arī pielietoju responsīvo dizainu, lai nodrošinātu ērtu lietošanu gan uz datoriem, gan mobilajām ierīcēm. Man bija svarīgi, lai mājaslapa būtu ne tikai funkcionāla, bet arī estētiski pievilcīga, tāpēc es pievērsu lielu uzmanību dizainam, krāsu shēmai un lietotāja pieredzei. Turklāt es pievienoju tumšās tēmas funkcionalitāti, kas ļauj lietotājiem izvēlēties sev ērtāko skatīšanās režīmu, kā arī nodrošināju, lai tēma saglabātos, pārejot starp dažādām lapām.</p>
+                <p data-translate="home_text_3">Studiju laikā esmu apguvis dažādas tehnoloģijas un rīkus, tostarp pamata programmēšanas valodas, piemēram, Python un C++, kā arī iemācījies strādāt ar versiju kontroles sistēmām, piemēram, Git un GitHub. Papildus tam esmu eksperimentējis ar tādiem rīkiem kā Visual Studio Code, Figma un dažādām JavaScript bibliotēkām, lai padziļinātu savas zināšanas front-end izstrādē. Viens no maniem mīļākajiem projektiem, ko es izveidoju mācību ietvaros, bija vienkārša laika prognozes lietotne, kas izmantoja API, lai iegūtu reāllaika datus — tas man iemācīja, kā strādāt ar ārējiem datiem un integrēt tos savos projektos.</p>
+                <p data-translate="home_text_4">Šobrīd, 2025. gada jūnijā, es turpinu attīstīt savas prasmes un strādāt pie jauniem projektiem, kas varētu būt noderīgi gan manai profesionālajai izaugsmei, gan sabiedrībai. Mana mērķis ir kļūt par prasmīgu programmētāju, kurš spēj radīt inovatīvus risinājumus, kas atvieglo cilvēku ikdienu. Es vēlos arī padziļināt savas zināšanas tādās jomās kā mākslīgais intelekts un datu analīze, jo uzskatu, ka šīs jomas būs nākotnes tehnoloģiju pamatā. Šeit jūs varēsiet iepazīties ar maniem sasniegumiem un uzzināt vairāk par manu attīstību kā topošajam programmētājam.</p>
+                <p data-translate="home_text_5">Ja vēlaties uzzināt vairāk par maniem projektiem un to, kā es pielietoju savas zināšanas praksē, es aicinu jūs apskatīt manu pieredzi. Tur es detalizētāk aprakstu savus projektus, kā arī dalos ar izaicinājumiem, ar kuriem saskāros, un risinājumiem, ko atradu to pārvarēšanai. Pievienojieties man šajā digitālajā ceļojumā!</p>
+                <a href="pieredze.html" class="experience-button" data-translate="home_button">Apskatīt Pieredzi</a>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="experience_title">Pieredze</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-theme {
+            background-color: #333 !important;
+            color: #f0f0f0 !important;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e6f0fa;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+            transition: background-color 0.3s, border-bottom 0.3s, color 0.3s;
+        }
+
+        body.dark-theme .navbar {
+            background-color: #444 !important;
+            border-bottom: 1px solid #666 !important;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            display: none !important;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        .dark-theme .nav-links a {
+            color: #f0f0f0 !important;
+        }
+
+        .dark-theme .nav-links a:hover {
+            color: #66b0ff !important;
+        }
+
+       .icons-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.theme-toggle {
+    padding: 0;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    transition: background-color 0.3s;
+}
+
+.theme-icon {
+    font-size: 20px;
+}
+
+.dark-theme .theme-toggle {
+    background-color: #66b0ff !important;
+}
+
+.dark-theme .theme-toggle:hover {
+    background-color: #99ccff !important;
+}
+
+.language-toggle {
+    position: relative;
+}
+
+.language-icon {
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.language-icon:hover {
+    background-color: #e6f0fa;
+}
+
+.dark-theme .language-icon:hover {
+    background-color: #555 !important;
+}
+
+.language-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+.language-menu.active {
+    display: block;
+}
+
+.language-menu a {
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.language-menu a:hover {
+    background-color: #e6f0fa;
+}
+
+.dark-theme .language-menu {
+    background-color: #444 !important;
+    border-color: #666 !important;
+}
+
+.dark-theme .language-menu a {
+    color: #f0f0f0 !important;
+}
+
+.dark-theme .language-menu a:hover {
+    background-color: #555 !important;
+}
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .text {
+            text-align: justify;
+            margin-left: 220px;
+            margin-right: 220px;
+        }
+
+        .text p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .text a.contact-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .text a.contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .dark-theme .text a.contact-link {
+            color: #66b0ff !important;
+        }
+
+        .dark-theme .text a.contact-link:hover {
+            color: #99ccff !important;
+        }
+
+        .image-w1 {
+            float: left;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        .image-w1 img {
+            width: 200px;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .image-w2 {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .image-w2 img {
+            width: 200px;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .dark-theme .image-w1 img,
+        .dark-theme .image-w2 img {
+            border-color: #666 !important;
+        }
+
+        @media (min-width: 769px) {
+            .menu-icon {
+                display: none !important;
+            }
+            .nav-links {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+            }
+
+            .menu-icon {
+                display: block !important;
+            }
+
+            .nav-links {
+                display: none !important;
+                flex-direction: column;
+                width: 100%;
+                padding: 10px 0;
+            }
+
+            .nav-links.active {
+                display: flex !important;
+            }
+
+            .nav-links a {
+                padding: 10px;
+                font-size: 16px;
+                width: 100%;
+                text-align: left;
+            }
+
+            .icons-container {
+                margin-top: 10px;
+                align-self: flex-end;
+            }
+
+            .theme-toggle, .language-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .theme-icon, .language-icon {
+                font-size: 18px;
+            }
+
+            .language-menu {
+                top: 36px;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .text {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .image-w1, .image-w2 {
+                float: none;
+                position: static;
+                transform: none;
+                text-align: center;
+                margin: 20px auto;
+                display: block;
+            }
+
+            .image-w1 img, .image-w2 img {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 18px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            .theme-toggle, .language-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .theme-icon, .language-icon {
+                font-size: 16px;
+            }
+
+            .language-menu {
+                top: 32px;
+            }
+
+            .language-menu a {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="nav-links">
+            <a href="index.html" data-translate="nav_home">Sākums</a>
+            <a href="pieredze.html" data-translate="nav_experience">Pieredze</a>
+            <a href="par-mani.html" data-translate="nav_about">Par mani</a>
+            <a href="kontakti.html" data-translate="nav_contacts">Kontakti</a>
+        </div>
+        <div class="icons-container">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <div class="language-toggle">
+                <span class="language-icon" onclick="toggleLanguageMenu()">🌐</span>
+                <div class="language-menu">
+                    <a href="#" onclick="setLanguage('lv'); toggleLanguageMenu(); return false;">LV</a>
+                    <a href="#" onclick="setLanguage('en'); toggleLanguageMenu(); return false;">EN</a>
+                    <a href="#" onclick="setLanguage('ru'); toggleLanguageMenu(); return false;">RU</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 data-translate="experience_title">Pieredze</h1>
+        <div class="content">
+            <div class="image-w1">
+                <img src="photos/w1.png" alt="Latvijas Universitāte">
+            </div>
+            <div class="text">
+                <p data-translate="experience_text_1">Mana pieredze digitālajā jomā ir cieši saistīta ar mācībām Latvijas Universitātē, kur es studēju Datorikas fakultātē. Kopš studiju sākuma 2022. gadā esmu aktīvi piedalījies dažādās aktivitātēs, tostarp lekcijās, praktiskajās nodarbībās un projektos, kas man ir devuši iespēju apgūt jaunas tehnoloģijas un pielietot tās reālos scenārijos. Universitātes vide ir bijusi ideāla vieta, kur attīstīt savas prasmes, jo tā piedāvā gan teorētiskās zināšanas, gan praktiskas iespējas, piemēram, piedalīšanos grupu projektos un sadarbību ar pasniedzējiem un kursabiedriem, izmantojot tādas platformas kā Microsoft Teams. Teams kļuva par būtisku rīku, kas palīdzēja mums organizēt tikšanās, apmainīties ar failiem un uzturēt komunikāciju, it īpaši attālināto mācību periodā.</p>
+                <p data-translate="experience_text_2">2024. gada vasarā es piedalījos praksē, kur man bija iespēja strādāt pie reāla projekta profesionālā vidē. Prakses ietvaros es strādāju pie backend sistēmas izstrādes, izmantojot Java Spring Boot — ietvaru, kas man sākotnēji šķita sarežģīts, bet ar laiku kļuva par vienu no maniem iecienītākajiem rīkiem. Mēs izmantojām Git versiju kontroles sistēmu, lai pārvaldītu kodu, un Jira, lai sekotu līdzi uzdevumiem un projekta progresam. Git man palīdzēja efektīvi sadarboties ar komandu, jo mēs bieži strādājām pie dažādām koda daļām vienlaikus, un bija svarīgi, lai izmaiņas būtu sinhronizētas un konflikti tiktu atrisināti ātri. Savukārt Jira nodrošināja skaidru pārskatu par to, kas katram komandas dalībniekam ir jāizdara, kā arī ļāva mums plānot sprintus un sekot līdzi termiņiem.</p>
+                <p data-translate="experience_text_3">Prakses laikā mēs arī izmantojām Slack kā galveno komunikācijas rīku, lai uzturētu kontaktu ar komandu un dalītos ar ātriem atjauninājumiem. Slack man palīdzēja ātri atrisināt mazākas problēmas, jo es varēju uzdot jautājumus kolēģiem un saņemt atbildes reāllaikā, kas ievērojami paātrināja darba procesu. Viens no maniem galvenajiem uzdevumiem praksē bija izveidot API, kas integrējās ar AWS mākoņpakalpojumiem, konkrēti ar AWS S3, lai uzglabātu un apstrādātu lietotāju augšupielādētos failus. Sākotnēji man bija grūtības saprast, kā pareizi konfigurēt AWS piekļuves atslēgas un drošības iestatījumus, bet, pateicoties komandas atbalstam un AWS dokumentācijai, es spēju veiksmīgi ieviest funkcionalitāti. Šī pieredze man iemācīja, kā strādāt ar mākoņpakalpojumiem un cik svarīga ir drošība, strādājot ar sensitīviem datiem.</p>
+                <p data-translate="experience_text_4">Bez prakses es arī strādāju pie vairākiem individuāliem projektiem universitātes ietvaros, kas man deva iespēju eksperimentēt ar dažādām tehnoloģijām. Piemēram, es izveidoju nelielu tiešsaistes platformu studentiem, kur viņi varēja dalīties ar mācību materiāliem. Šim projektam es izmantoju Java Spring Boot backend izstrādei, jo tas nodrošināja stabilu un efektīvu veidu, kā pārvaldīt lietotāju pieprasījumus un datu bāzi. Kā datu bāzi es izvēlējos PostgreSQL, jo tā ir uzticama un plaši izmantota. Lai nodrošinātu efektīvu sadarbību ar kursabiedriem, mēs atkal izmantojām Teams, kas ļāva mums rīkot tiešsaistes sanāksmes un dalīties ar ekrānu, lai demonstrētu progresu. Šis projekts man iemācīja, kā svarīgi ir plānot datu bāzes struktūru un nodrošināt, lai sistēma būtu mērogojama un viegli uzturama.</p>
+                <p><span data-translate="experience_text_5">2025. gada jūnijā es turpinu attīstīt savas prasmes un meklēju jaunas iespējas, lai pielietotu savas zināšanas. Prakse un universitātes projekti man ir iemācījuši, cik svarīga ir komandas sadarbība, efektīva komunikācija un spēja ātri pielāgoties jauniem rīkiem un tehnoloģijām. Esmu ieguvis pārliecību, strādājot ar tādiem rīkiem kā Git, Jira, Slack un AWS, un esmu gatavs turpināt mācīties, lai kļūtu par vēl labāku programmētāju. Nākotnē es vēlos padziļināt savas zināšanas par mākoņskaitļošanu un mikroservisiem, jo uzskatu, ka šīs tehnoloģijas ir mūsdienu programmatūras izstrādes pamatā. Ja vēlaties uzzināt vairāk par mani vai sazināties, aicinu apskatīt sadaļas</span> <a href="par-mani.html" class="contact-link" data-translate-href="experience_link_1">Par mani</a> <span data-translate="or">, </span> <a href="kontakti.html" class="contact-link" data-translate-href="experience_link_2">Kontakti</a>!</p>
+            </div>
+            <div class="image-w2">
+                <img src="photos/w2.png" alt="Latvijas Universitāte">
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js" defer></script>
+</body>
+</html>
